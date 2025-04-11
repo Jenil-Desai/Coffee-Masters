@@ -1,3 +1,4 @@
+import 'package:coffee_masters/offerspage.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -35,6 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Image.asset("images/logo.png"),
       ),
+      body: const Offerspage(),
     );
   }
 }
