@@ -1,4 +1,7 @@
-import 'package:coffee_masters/offerspage.dart';
+import 'package:coffee_masters/datamanager.dart';
+import 'package:coffee_masters/pages/menupage.dart';
+import 'package:coffee_masters/pages/offerspage.dart';
+import 'package:coffee_masters/pages/orderspage.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -14,7 +17,6 @@ class MyApp extends StatelessWidget {
       title: 'Coffee Masters',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.brown),
-        primarySwatch: Colors.brown,
       ),
       home: const MyHomePage(),
     );
@@ -29,6 +31,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  var dataManager = DataManager();
   var selectedIndex = 0;
 
   @override
@@ -37,13 +40,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
     switch (selectedIndex) {
       case 0:
-        page = const Text("Hello From Coffe Page");
+        page = Menupage(dataManager: dataManager);
         break;
       case 1:
         page = const Offerspage();
         break;
       case 2:
-        page = const Text("Hello From Orders Page");
+        page = Orderspage(dataManager: dataManager);
         break;
     }
 
@@ -63,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
         selectedItemColor: Colors.amber.shade500,
         unselectedItemColor: Colors.amber.shade50,
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.coffee), label: "Coffee"),
+          BottomNavigationBarItem(icon: Icon(Icons.coffee), label: "Menu"),
           BottomNavigationBarItem(
             icon: Icon(Icons.local_offer),
             label: "Offers",
