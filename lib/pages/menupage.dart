@@ -8,17 +8,59 @@ class Menupage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var product = Product(
-      name: "Mocha",
-      price: 4.0,
-      id: '4',
-      image: 'mocha.png',
-    );
-    return ListView(
-      children: [
-        ProductItem(product: product, onAdd: () => print(product)),
-        ProductItem(product: product, onAdd: () => print(product)),
-      ],
+    return FutureBuilder(
+      future: dataManager.getMenu(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          var cateogories = snapshot.data as List<Category>;
+          return ListView.builder(
+            itemCount: cateogories.length,
+            itemBuilder: (context, index) {
+              return Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      cateogories[index].name,
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: ClampingScrollPhysics(),
+                    itemCount: cateogories[index].products.length,
+                    itemBuilder: (context, prodIndex) {
+                      var product = cateogories[index].products[prodIndex];
+                      return ProductItem(
+                        product: product,
+                        onAdd: () {
+                          dataManager.cartAdd(product);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                "${cateogories[index].products[index].name} added to cart",
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ],
+              );
+            },
+          );
+        } else {
+          if (snapshot.hasError) {
+            return Center(child: Text("Error: ${snapshot.error}"));
+          } else {
+            return Center(child: CircularProgressIndicator());
+          }
+        }
+      },
     );
   }
 }
@@ -37,8 +79,8 @@ class ProductItem extends StatelessWidget {
         elevation: 4,
         child: Column(
           children: [
-            Image.asset(
-              "images/black_coffee.png",
+            Image.network(
+              product.imageUrl,
               fit: BoxFit.cover,
               width: double.infinity,
             ),
