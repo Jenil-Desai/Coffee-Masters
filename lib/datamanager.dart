@@ -39,10 +39,11 @@ class DataManager {
       if (item.product.id == product.id) {
         item.quantity++;
         found = true;
+        break;
       }
-      if (!found) {
-        cart.add(ItemInCart(product: product, quantity: 1));
-      }
+    }
+    if (!found) {
+      cart.add(ItemInCart(product: product, quantity: 1));
     }
   }
 

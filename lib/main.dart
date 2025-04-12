@@ -46,7 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
         page = const Offerspage();
         break;
       case 2:
-        page = Orderspage(dataManager: dataManager);
+        page = OrdersPage(dataManager: dataManager);
         break;
     }
 

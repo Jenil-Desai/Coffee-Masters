@@ -5,14 +5,31 @@ class Offerspage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: const [
-        Offer(title: "My Great Offer Ever", description: "Buy 1, Get 10 Free"),
-        Offer(title: "My Great Offer Ever", description: "Buy 1, Get 10 Free"),
-        Offer(title: "My Great Offer Ever", description: "Buy 1, Get 10 Free"),
-        Offer(title: "My Great Offer Ever", description: "Buy 1, Get 10 Free"),
-        Offer(title: "My Great Offer Ever", description: "Buy 1, Get 10 Free"),
-      ],
+    return Center(
+      child: Wrap(
+        children: const [
+          Offer(
+            title: "My Great Offer Ever",
+            description: "Buy 1, Get 10 Free",
+          ),
+          Offer(
+            title: "My Great Offer Ever",
+            description: "Buy 1, Get 10 Free",
+          ),
+          Offer(
+            title: "My Great Offer Ever",
+            description: "Buy 1, Get 10 Free",
+          ),
+          Offer(
+            title: "My Great Offer Ever",
+            description: "Buy 1, Get 10 Free",
+          ),
+          Offer(
+            title: "My Great Offer Ever",
+            description: "Buy 1, Get 10 Free",
+          ),
+        ],
+      ),
     );
   }
 }
@@ -27,6 +44,7 @@ class Offer extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 170,
+      width: 500,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Card(
