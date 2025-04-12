@@ -6,7 +6,7 @@ class Offerspage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Wrap(
+      child: ListView(
         children: const [
           Offer(
             title: "My Great Offer Ever",
