@@ -20,11 +20,14 @@ class Menupage extends StatelessWidget {
                 children: [
                   Padding(
                     padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      cateogories[index].name,
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
+                    child: Container(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        cateogories[index].name,
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
@@ -77,51 +80,49 @@ class ProductItem extends StatelessWidget {
       padding: EdgeInsets.all(8.0),
       child: Card(
         elevation: 4,
-        child: Column(
-          children: [
-            Image.network(
-              product.imageUrl,
-              fit: BoxFit.cover,
-              width: double.infinity,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              CircleAvatar(
+                backgroundImage: NetworkImage(product.imageUrl),
+                radius: 40,
+              ),
+              SizedBox(width: 12), // Add space between avatar and content
+              Expanded(
+                child: Row(
+                  mainAxisAlignment:
+                      MainAxisAlignment
+                          .spaceBetween, // Space between content and button
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        product.name,
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                      padding: const EdgeInsets.only(left: 5.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            product.name.length > 15
+                                ? "${product.name.substring(0, 15)}..."
+                                : product.name,
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text("\$${product.price}"),
+                        ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text("\$${product.price}"),
+                    ElevatedButton.icon(
+                      onPressed: () => onAdd(),
+                      icon: const Icon(Icons.add),
+                      label: Text("Add"),
                     ),
                   ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 8.0),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.brown,
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                    ),
-                    onPressed: () {
-                      onAdd();
-                    },
-                    child: Text("Add to Cart"),
-                  ),
-                ),
-              ],
-            ),
-          ],
+              ),
+            ],
+          ),
         ),
       ),
     );
